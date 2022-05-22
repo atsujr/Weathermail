@@ -16,6 +16,9 @@
 		3B892A0F2839D6710015CBD7 /* WeathermailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892A0E2839D6710015CBD7 /* WeathermailTests.swift */; };
 		3B892A192839D6710015CBD7 /* WeathermailUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892A182839D6710015CBD7 /* WeathermailUITests.swift */; };
 		3B892A1B2839D6710015CBD7 /* WeathermailUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892A1A2839D6710015CBD7 /* WeathermailUITestsLaunchTests.swift */; };
+		3B892A282839D7920015CBD7 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892A272839D7920015CBD7 /* WeatherViewController.swift */; };
+		3B892A2A2839D7A20015CBD7 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892A292839D7A20015CBD7 /* SettingViewController.swift */; };
+		3B892A2C283A30650015CBD7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892A2B283A30650015CBD7 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		3B892A142839D6710015CBD7 /* WeathermailUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeathermailUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B892A182839D6710015CBD7 /* WeathermailUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeathermailUITests.swift; sourceTree = "<group>"; };
 		3B892A1A2839D6710015CBD7 /* WeathermailUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeathermailUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3B892A272839D7920015CBD7 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		3B892A292839D7A20015CBD7 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		3B892A2B283A30650015CBD7 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,10 +108,13 @@
 				3B8929F72839D66F0015CBD7 /* AppDelegate.swift */,
 				3B8929F92839D66F0015CBD7 /* SceneDelegate.swift */,
 				3B8929FB2839D66F0015CBD7 /* ViewController.swift */,
+				3B892A292839D7A20015CBD7 /* SettingViewController.swift */,
+				3B892A272839D7920015CBD7 /* WeatherViewController.swift */,
 				3B8929FD2839D66F0015CBD7 /* Main.storyboard */,
 				3B892A002839D6710015CBD7 /* Assets.xcassets */,
 				3B892A022839D6710015CBD7 /* LaunchScreen.storyboard */,
 				3B892A052839D6710015CBD7 /* Info.plist */,
+				3B892A2B283A30650015CBD7 /* CustomTextField.swift */,
 			);
 			path = Weathermail;
 			sourceTree = "<group>";
@@ -258,7 +267,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B892A2A2839D7A20015CBD7 /* SettingViewController.swift in Sources */,
 				3B8929FC2839D66F0015CBD7 /* ViewController.swift in Sources */,
+				3B892A2C283A30650015CBD7 /* CustomTextField.swift in Sources */,
+				3B892A282839D7920015CBD7 /* WeatherViewController.swift in Sources */,
 				3B8929F82839D66F0015CBD7 /* AppDelegate.swift in Sources */,
 				3B8929FA2839D66F0015CBD7 /* SceneDelegate.swift in Sources */,
 			);
