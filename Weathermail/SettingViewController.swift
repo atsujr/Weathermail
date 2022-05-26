@@ -8,11 +8,23 @@
 import UIKit
 
 class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource{
-    @IBOutlet weak private var textField: UITextField!
+    @IBOutlet weak private var weatherTextField: UITextField!
+    @IBOutlet weak private var timeTextField: UITextField!
     //インスタンスを作成
+    @IBAction func ValueChanged(_ sender: UISegmentedControl) {
+            switch sender.selectedSegmentIndex {
+            case 0:
+                timeTextField.isHidden = false
+            case 1:
+                timeTextField.isHidden = true
+            default:
+                print("存在しない番号")
+            }
+        }
     
        private let pickerView = UIPickerView(frame: .zero)
 //47都道府県を入れた配列を用意
+//https://weather.tsukumijima.net/primary_area.xml
        private let dataList = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
                                "山形県", "福島県", "茨城県", "栃木県", "群馬県",
                                "埼玉県", "千葉県", "東京都", "神奈川県","新潟県",
@@ -28,7 +40,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
        override func viewDidLoad() {
            super.viewDidLoad()
            //最初に、textfieldに入れる値を決定する。
-           textField.text = "東京都"
+           weatherTextField.text = "東京都"
                //準備する関数
            setup()
        }
@@ -44,14 +56,14 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
            toolbar.sizeToFit()
            
            //したから出てくるのを、pickerに指定(これを書かないと、キーボードがそのままでてくる！)
-           textField.inputView = pickerView
+           weatherTextField.inputView = pickerView
            //toolbarを、pickerの上に配置
-           textField.inputAccessoryView = toolbar
+           weatherTextField.inputAccessoryView = toolbar
        }
     
     @objc func tappedDone() {
         //doneを押したときに、閉めることができるメソッド
-        textField.resignFirstResponder()
+        weatherTextField.resignFirstResponder()
     }
 //ここから下の４つの関数は、UIPickerViewDelegate, UIPickerViewDataSourceというこの２つのプロトコルの内部に宣言されている(しかもoptionalじゃない４つ)から、絶対書かないといけない。書かないとエラー吐く。
         
@@ -70,6 +82,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         }
         //現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            textField.text = dataList[row]
+            weatherTextField.text = dataList[row]
         }
+
 }

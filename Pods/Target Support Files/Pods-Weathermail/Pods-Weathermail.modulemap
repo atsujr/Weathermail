@@ -1,0 +1,6 @@
+framework module Pods_Weathermail {
+  umbrella header "Pods-Weathermail-umbrella.h"
+
+  export *
+  module * { export * }
+}
