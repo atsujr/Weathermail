@@ -13,37 +13,63 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     // 要素の数
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return dataList.count
     }
+    
     //スクロールするところに出てくる、要素の表示方法
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return dataList[row]
         
     }
+    
     //現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        placeTextField.text = dataList[row]
-        
+        placeText = dataList[row]
+        placeTextField.text = placeText
     }
     
+    //宣言
     @IBOutlet  var placeTextField: CustomTextField!
     @IBOutlet  var timeTextField: CustomTextField!
-    //インスタンスを作成
+    
+    //userdefaultsに入れる用の変数を2つ宣言しておく。
+    var placeText: String!
+    var timeText: String!
+    
+    //通知を希望するかしないかのための変数
+    var wantMail: Bool!
+    
+    //userdefaultsを宣言する
+    var userDefaults = UserDefaults.standard
+    
+    //switchの動作決定
     @IBAction func mailUISwitch(sender: UISwitch) {
         if ( sender.isOn ) {
             timeTextField.isHidden = false
+            wantMail = true
+            
         } else {
             timeTextField.isHidden = true
+            wantMail = false
         }
     }
     
+    //saveボタンを押したら、usserdefaulltsに値を入れる。
+    @IBAction func savePlaceAndTime() {
+        didSaveAlert()
+    }
+    
+    //戻るボタンを押したとき
+    @IBAction func backHomeView() {
+        didBackAlert()
+    }
+    //インスタンスを作成
     let todofukenPickerView = UIPickerView(frame: .zero)
     let timePickerView = UIPickerView(frame: .zero)
     
-    //let formatter = DateFormatter()
     //47都道府県を入れた配列を用意
     //https://weather.tsukumijima.net/primary_area.xml
     private let dataList = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
@@ -83,18 +109,19 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         placeTextField.inputAccessoryView = toolbar
     }
     
-    
     @objc func tappedPlaceDone() {
         //doneを押したときに、閉めることができるメソッド
         placeTextField.resignFirstResponder()
         
     }
+    
     func setupTimePicker(){
         timePickerView.dataSource = self
         
         timePickerView.delegate = self
         //したから出てくるのを、pickerに指定(これを書かないと、キーボードがそのままでてくる！)
         timeTextField.inputView = timePicker
+        //車輪型を選択する。他にも色々デザインは選択できる。詳しくは、optionキーを押して、書類を確認せよ。
         timePicker.preferredDatePickerStyle = .wheels
         //ここから５行は、Pickerの上のtoolbarに関する説明
         let toolbar = UIToolbar()
@@ -105,11 +132,13 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         //toolbarを、pickerの上に配置
         timeTextField.inputAccessoryView = toolbar
     }
+    
     @objc func tappedTimeDone() {
         //doneを押したときに、閉めることができるメソッド
         timeTextField.resignFirstResponder()
         
     }
+    
     //UIDatePickerをインスタンス化
     let timePicker: UIDatePicker = {
         let dp = UIDatePicker()
@@ -122,10 +151,62 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         dp.minuteInterval = 1
         return dp
     }()
+    
     @objc func changeDate(){
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
-        timeTextField.text = "\(formatter.string(from: timePicker.date))"
+        timeText = "\(formatter.string(from: timePicker.date))"
+        timeTextField.text = timeText
         print("🍌")
     }
+    func didSaveAlert(){
+        // 第3引数のpreferredStyleでアラートの表示スタイルを指定
+        let alert = UIAlertController(title: "保存", message: "保存しますか？", preferredStyle: .alert)
+        
+        // OKボタン
+        let ok = UIAlertAction(title: "OK", style: .default) { (action) in
+            //通知を希望するかどうかで保存するものが変わる。
+            if (self.wantMail) {
+                self.userDefaults.set(self.placeText, forKey: "place")
+                self.userDefaults.set(self.timeText, forKey: "time")
+            } else {
+                self.userDefaults.set(self.placeText, forKey: "place")
+            }
+            //一個前の画面に戻る。
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(ok)
+        
+        // キャンセルボタン
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { (acrion) in
+            //self.dismiss(animated: true, completion: nil)
+            print("🍫")
+        }
+        alert.addAction(cancel)
+        
+        // Alertを表示
+        present(alert, animated: true, completion: nil)
+    }
+    func didBackAlert(){
+        // 第3引数のpreferredStyleでアラートの表示スタイルを指定
+        let alert = UIAlertController(title: "データをまだ保存してません", message: "本当に戻りますか？", preferredStyle: .alert)
+        
+        // OKボタン
+        let ok = UIAlertAction(title: "OK", style: .default) { (action) in
+            //一個前の画面に戻る。
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(ok)
+        
+        // キャンセルボタン
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { (acrion) in
+            //self.dismiss(animated: true, completion: nil)
+            print("🍫")
+        }
+        alert.addAction(cancel)
+        
+        // Alertを表示
+        present(alert, animated: true, completion: nil)
+    }
+    
 }

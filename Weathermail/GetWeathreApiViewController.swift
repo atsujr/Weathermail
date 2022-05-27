@@ -125,7 +125,7 @@ class GetWeathreApiViewController: UIViewController {
         
         //これで、リクエストで使うことができるURLができた
         let url = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        //Alamofireで通信します。データを取得。
+        //Alamofireで通信。データを取得。
         AF.request(url!, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result {
             case .success:
@@ -135,6 +135,7 @@ class GetWeathreApiViewController: UIViewController {
                 self.maxTemp = json["forecasts"][0]["temperature"]["min"]["celsius"].string
                 self.maxTemp = json["forecasts"][0]["temperature"]["max"]["celsius"].string
                 //上記の2つは、strinで値を返しているから、optionaol()か、nilが入る。後々アンラップしないと,,,
+                //しかも、なぜかは知らないが、最低気温か最高気温が取得できない場合がある。(正確にはnullだったりする。)
                 self.chanceOfRain0to6 = json["forecasts"][0]["chanceOfRain"]["T00_06"].string!
                 self.chanceOfRain6to12 = json["forecasts"][0]["chanceOfRain"]["T06_12"].string!
                 self.chanceOfRain12to18 = json["forecasts"][0]["chanceOfRain"]["T12_18"].string!
