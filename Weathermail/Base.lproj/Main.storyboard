@@ -77,7 +77,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="2fC-qk-zzR"/>
                     <connections>
-                        <outlet property="textField" destination="9hp-tQ-LCN" id="MuI-pl-2lN"/>
+                        <outlet property="placeTextField" destination="9hp-tQ-LCN" id="lsa-wD-uOD"/>
+                        <outlet property="timeTextField" destination="2Ne-9U-Dzm" id="kyK-tj-8tV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wCQ-DX-62m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
