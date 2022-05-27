@@ -9,24 +9,24 @@ import UIKit
 
 class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource{
     //ここから下の４つの関数は、UIPickerViewDelegate, UIPickerViewDataSourceというこの２つのプロトコルの内部に宣言されている(しかもoptionalじゃない４つ)から、絶対書かないといけない。書かないとエラー吐く。
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-   // 要素の数
+    // 要素の数
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return dataList.count
     }
     //スクロールするところに出てくる、要素の表示方法
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-            return dataList[row]
-
+        return dataList[row]
+        
     }
     //現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
+        
         placeTextField.text = dataList[row]
-
+        
     }
     
     @IBOutlet weak private var placeTextField: UITextField!
@@ -35,10 +35,10 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @IBAction func mailUISwitch(sender: UISwitch) {
         if ( sender.isOn ) {
             timeTextField.isHidden = false
-         } else {
-             timeTextField.isHidden = true
-         }
-     }
+        } else {
+            timeTextField.isHidden = true
+        }
+    }
     
     let todofukenPickerView = UIPickerView(frame: .zero)
     let timePickerView = UIPickerView(frame: .zero)
@@ -64,11 +64,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         placeTextField.text = "東京都"
         //準備する関数
         setupWeatherPicker()
-       setupTimePicker()
-        
-//
-       // var setTime = SetTimeViewController()
-      //  setTime.setupTimepicker()
+        setupTimePicker()
     }
     
     func setupWeatherPicker() {
@@ -115,23 +111,21 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         
     }
     //UIDatePickerをインスタンス化
-     let timePicker: UIDatePicker = {
-         let dp = UIDatePicker()
+    let timePicker: UIDatePicker = {
+        let dp = UIDatePicker()
         dp.datePickerMode = UIDatePicker.Mode.time
-         
-         //おそらく上記のところ
-         dp.timeZone = NSTimeZone.local
-         //時間をJapanese(24時間表記)に変更
-         dp.locale = Locale.init(identifier: "Japanese")
-         dp.addTarget(self, action: #selector(banana), for: .valueChanged)
-         //最小単位（分）を設定
-         dp.minuteInterval = 1
-         return dp
-     }()
-     @objc func banana(){
+        dp.timeZone = NSTimeZone.local
+        //時間をJapaneseに変更
+        dp.locale = Locale.init(identifier: "Japanese")
+        dp.addTarget(self, action: #selector(changeDate), for: .valueChanged)
+        //最小単位（分）を設定
+        dp.minuteInterval = 1
+        return dp
+    }()
+    @objc func changeDate(){
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         timeTextField.text = "\(formatter.string(from: timePicker.date))"
-         print("🍌")
-     }
+        print("🍌")
+    }
 }
