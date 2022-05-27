@@ -29,8 +29,8 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         
     }
     
-    @IBOutlet weak private var placeTextField: UITextField!
-    @IBOutlet weak private var timeTextField: UITextField!
+    @IBOutlet  var placeTextField: CustomTextField!
+    @IBOutlet  var timeTextField: CustomTextField!
     //インスタンスを作成
     @IBAction func mailUISwitch(sender: UISwitch) {
         if ( sender.isOn ) {

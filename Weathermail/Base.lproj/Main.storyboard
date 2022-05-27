@@ -51,13 +51,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hp-tQ-LCN">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hp-tQ-LCN" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
                                 <rect key="frame" x="97" y="112" width="220" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Ne-9U-Dzm">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Ne-9U-Dzm" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
                                 <rect key="frame" x="97" y="498" width="220" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -76,8 +76,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="2fC-qk-zzR"/>
                     <connections>
-                        <outlet property="placeTextField" destination="9hp-tQ-LCN" id="A1i-Z8-7VE"/>
-                        <outlet property="timeTextField" destination="2Ne-9U-Dzm" id="PHo-bB-UF7"/>
+                        <outlet property="placeTextField" destination="9hp-tQ-LCN" id="hY3-LO-ffB"/>
+                        <outlet property="timeTextField" destination="2Ne-9U-Dzm" id="ft0-Mx-NqI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wCQ-DX-62m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
