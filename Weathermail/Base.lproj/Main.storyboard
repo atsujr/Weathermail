@@ -63,22 +63,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XnC-SK-gdQ">
-                                <rect key="frame" x="115" y="302" width="184" height="32"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CVt-7e-iTP">
+                                <rect key="frame" x="165" y="281" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="はい"/>
-                                    <segment title="いいえ"/>
-                                </segments>
-                            </segmentedControl>
+                                <connections>
+                                    <action selector="mailUISwitchWithSender:" destination="vAv-I7-rEz" eventType="valueChanged" id="zOH-er-0uI"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PCQ-0c-sCC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="2fC-qk-zzR"/>
                     <connections>
-                        <outlet property="placeTextField" destination="9hp-tQ-LCN" id="lsa-wD-uOD"/>
-                        <outlet property="timeTextField" destination="2Ne-9U-Dzm" id="kyK-tj-8tV"/>
+                        <outlet property="placeTextField" destination="9hp-tQ-LCN" id="A1i-Z8-7VE"/>
+                        <outlet property="timeTextField" destination="2Ne-9U-Dzm" id="PHo-bB-UF7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wCQ-DX-62m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

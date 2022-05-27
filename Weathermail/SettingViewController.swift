@@ -8,20 +8,25 @@
 import UIKit
 
 class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource{
+    //ここから下の４つの関数は、UIPickerViewDelegate, UIPickerViewDataSourceというこの２つのプロトコルの内部に宣言されている(しかもoptionalじゃない４つ)から、絶対書かないといけない。書かないとエラー吐く。
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    //要素の数
+   // 要素の数
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return dataList.count
     }
     //スクロールするところに出てくる、要素の表示方法
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dataList[row]
+            return dataList[row]
+
     }
     //現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
         placeTextField.text = dataList[row]
+
     }
     
     @IBOutlet weak private var placeTextField: UITextField!
@@ -37,6 +42,8 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     
     let todofukenPickerView = UIPickerView(frame: .zero)
     let timePickerView = UIPickerView(frame: .zero)
+    
+    //let formatter = DateFormatter()
     //47都道府県を入れた配列を用意
     //https://weather.tsukumijima.net/primary_area.xml
     private let dataList = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
@@ -70,7 +77,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         //ここから５行は、Pickerの上のtoolbarに関する説明
         let toolbar = UIToolbar()
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(tappedDone))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(tappedPlaceDone))
         toolbar.items = [space, doneButton]
         toolbar.sizeToFit()
         
@@ -81,7 +88,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     }
     
     
-    @objc func tappedDone() {
+    @objc func tappedPlaceDone() {
         //doneを押したときに、閉めることができるメソッド
         placeTextField.resignFirstResponder()
         
@@ -92,14 +99,20 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         timePickerView.delegate = self
         //したから出てくるのを、pickerに指定(これを書かないと、キーボードがそのままでてくる！)
         timeTextField.inputView = timePicker
+        timePicker.preferredDatePickerStyle = .wheels
         //ここから５行は、Pickerの上のtoolbarに関する説明
         let toolbar = UIToolbar()
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(tappedDone))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(tappedTimeDone))
         toolbar.items = [space, doneButton]
         toolbar.sizeToFit()
         //toolbarを、pickerの上に配置
         timeTextField.inputAccessoryView = toolbar
+    }
+    @objc func tappedTimeDone() {
+        //doneを押したときに、閉めることができるメソッド
+        timeTextField.resignFirstResponder()
+        
     }
     //UIDatePickerをインスタンス化
      let timePicker: UIDatePicker = {
@@ -110,36 +123,15 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
          dp.timeZone = NSTimeZone.local
          //時間をJapanese(24時間表記)に変更
          dp.locale = Locale.init(identifier: "Japanese")
-         dp.addTarget(SettingViewController.self, action: #selector(dateChange), for: .valueChanged)
+         dp.addTarget(self, action: #selector(banana), for: .valueChanged)
          //最小単位（分）を設定
-         dp.minuteInterval = 10
+         dp.minuteInterval = 1
          return dp
      }()
-     @objc func dateChange(){
-         let formatter = DateFormatter()
-         formatter.dateFormat = "hh:mm"
-         timeTextField.text = "\(formatter.string(from: timePicker.date))"
-//     }
-    
-    //ここから下の４つの関数は、UIPickerViewDelegate, UIPickerViewDataSourceというこの２つのプロトコルの内部に宣言されている(しかもoptionalじゃない４つ)から、絶対書かないといけない。書かないとエラー吐く。
-    
-    
-    //スクロールバーの数
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    //要素の数
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return dataList.count
-    }
-    //スクロールするところに出てくる、要素の表示方法
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dataList[row]
-    }
-    //現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        placeTextField.text = dataList[row]
-    }
-    
-}
+     @objc func banana(){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        timeTextField.text = "\(formatter.string(from: timePicker.date))"
+         print("🍌")
+     }
 }
