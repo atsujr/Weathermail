@@ -69,6 +69,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Title" id="nFV-pR-5RJ">
+                                        <barButtonItem key="leftBarButtonItem" title="戻る" id="vSc-cu-FIz"/>
                                         <barButtonItem key="rightBarButtonItem" title="保存" id="vrN-eN-wYY">
                                             <connections>
                                                 <action selector="savePlaceAndTime" destination="vAv-I7-rEz" id="0uQ-XT-53f"/>

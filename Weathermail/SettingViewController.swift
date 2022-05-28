@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import os
 
 class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource{
     //ここから下の４つの関数は、UIPickerViewDelegate, UIPickerViewDataSourceというこの２つのプロトコルの内部に宣言されている(しかもoptionalじゃない４つ)から、絶対書かないといけない。書かないとエラー吐く。
@@ -31,7 +32,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         placeTextField.text = placeText
     }
     
-    //宣言
+    //textFieldの宣言
     @IBOutlet  var placeTextField: CustomTextField!
     @IBOutlet  var timeTextField: CustomTextField!
     
@@ -40,11 +41,12 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     var timeText: String!
     
     //通知を希望するかしないかのための変数
-    var wantMail: Bool!
+    var wantMail: Bool! = true
     
     //userdefaultsを宣言する
-    var userDefaults = UserDefaults.standard
+    let userDefaults = UserDefaults.standard
     
+    let now = NSDate()
     //switchの動作決定
     @IBAction func mailUISwitch(sender: UISwitch) {
         if ( sender.isOn ) {
@@ -70,6 +72,8 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     let todofukenPickerView = UIPickerView(frame: .zero)
     let timePickerView = UIPickerView(frame: .zero)
     
+    //通知リクエストを作成
+    var request:UNNotificationRequest!
     //47都道府県を入れた配列を用意
     //https://weather.tsukumijima.net/primary_area.xml
     private let dataList = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
@@ -86,11 +90,16 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        timePicker.date = now as Date
+        //Userdefaultsに初期値を代入
+        userDefaults.register(defaults: ["place" : "北海道", "time" : "0:00"])
         //最初に、textfieldに入れる値を決定する。
-        placeTextField.text = "東京都"
+        placeTextField.text = (UserDefaults.standard.object(forKey: "place") as? String)
+        timeTextField.text = (UserDefaults.standard.object(forKey: "time") as? String)
         //準備する関数
         setupWeatherPicker()
         setupTimePicker()
+        
     }
     
     func setupWeatherPicker() {
@@ -155,10 +164,12 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @objc func changeDate(){
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
+        
         timeText = "\(formatter.string(from: timePicker.date))"
         timeTextField.text = timeText
         print("🍌")
     }
+    
     func didSaveAlert(){
         // 第3引数のpreferredStyleでアラートの表示スタイルを指定
         let alert = UIAlertController(title: "保存", message: "保存しますか？", preferredStyle: .alert)
@@ -167,8 +178,17 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         let ok = UIAlertAction(title: "OK", style: .default) { (action) in
             //通知を希望するかどうかで保存するものが変わる。
             if (self.wantMail) {
+                //userdefaultsに、場所と時間をセットする。
                 self.userDefaults.set(self.placeText, forKey: "place")
                 self.userDefaults.set(self.timeText, forKey: "time")
+                
+                //通知機能を準備するための関数
+                self.setMail(self.timeText)
+                
+                // 通知リクエストの登録
+                let center = UNUserNotificationCenter.current()
+                center.add(self.request)
+                
             } else {
                 self.userDefaults.set(self.placeText, forKey: "place")
             }
@@ -187,6 +207,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         // Alertを表示
         present(alert, animated: true, completion: nil)
     }
+    
     func didBackAlert(){
         // 第3引数のpreferredStyleでアラートの表示スタイルを指定
         let alert = UIAlertController(title: "データをまだ保存してません", message: "本当に戻りますか？", preferredStyle: .alert)
@@ -209,4 +230,44 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         present(alert, animated: true, completion: nil)
     }
     
+    func setMail(_ timeOfMail: String){
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .medium
+        dateFormatter.dateStyle = .medium
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+ 
+        
+        let date2 = DateFormatter.HHmm.date(from: timeOfMail)!
+        let targetDate = Calendar.current.dateComponents(
+            [.hour, .minute],
+            from: date2)
+ 
+        let dateString = dateFormatter.string(from: date2)
+        print(dateString)
+ 
+        // トリガーの作成
+        let trigger = UNCalendarNotificationTrigger.init(dateMatching: targetDate, repeats: false)
+ 
+        // 通知コンテンツの作成
+        let content = UNMutableNotificationContent()
+        content.title = "Calendar Notification"
+        content.body = "お腹すいた,,,"
+        content.sound = UNNotificationSound.default
+ 
+        // 通知リクエストの作成
+        request = UNNotificationRequest.init(
+                identifier: "CalendarNotification",
+                content: content,
+                trigger: trigger)
+    }
+    
+}
+extension DateFormatter {
+    static var HHmm: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.timeZone = TimeZone.current
+        return dateFormatter
+    }
 }
