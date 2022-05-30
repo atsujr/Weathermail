@@ -26,18 +26,30 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ik3-tM-zeX">
-                                <rect key="frame" x="183" y="399" width="49" height="31"/>
+                                <rect key="frame" x="135" y="598" width="144" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="kekka"/>
+                                <connections>
+                                    <action selector="checkWeatherView" destination="BYZ-38-t0r" eventType="touchUpInside" id="Os5-Rc-2Hz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GpO-Bv-dHQ">
+                                <rect key="frame" x="183" y="368" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="test"/>
                                 <connections>
-                                    <action selector="button1" destination="BYZ-38-t0r" eventType="touchUpInside" id="B8z-kS-S7l"/>
+                                    <action selector="button1" destination="BYZ-38-t0r" eventType="touchUpInside" id="2ej-Y7-fZS"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <segue destination="nHo-tV-dsg" kind="show" identifier="toWeatherView" id="aDn-ob-7EH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -103,15 +115,16 @@
             <objects>
                 <viewController id="nHo-tV-dsg" customClass="WeatherViewController" customModule="Weathermail" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YCP-IH-Skf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="1iw-tr-f54"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="h0X-rA-daL"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PRN-8l-Vhz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="396" y="763"/>
+            <point key="canvasLocation" x="478" y="806"/>
         </scene>
     </scenes>
     <resources>

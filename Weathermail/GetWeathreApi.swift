@@ -2,7 +2,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class GetWeathreApiViewController: UIViewController {
+class GetWeathreApi{
     //県のcitycodeを返す関数
     func retCityTag(todoufuken: String) -> Int{
         if(todoufuken == "北海道"){
@@ -104,7 +104,7 @@ class GetWeathreApiViewController: UIViewController {
     }
     //ここから下は天気の情報をネットから持ってくる関数。
     var citytag :String!
-    var descriptWeather: String?
+    var descriptWeather: String? = "何で？"
     var maxTemp: String?
     var minTemp: String?
     var chanceOfRain0to6: String?
@@ -112,12 +112,10 @@ class GetWeathreApiViewController: UIViewController {
     var chanceOfRain12to18: String?
     var chanceOfRain18to24: String?
     var wind: String?
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+    init(num: String){
+        yoho(citytag: num)
     }
-    
+
     func yoho(citytag: String) {
         //https://api.openweathermap.org/data/2.5/weather?id=1859171&APPID=6c102866d28a640de6c8ef3028a90ed9
         //としの番号で指定したURL
@@ -132,6 +130,9 @@ class GetWeathreApiViewController: UIViewController {
                 //jsonを取得します。
                 let json = JSON(response.data as Any)
                 self.descriptWeather = json["forecasts"][0]["telop"].string!
+                print("🍊")
+                print(self.descriptWeather)
+                print("🍊")
                 self.maxTemp = json["forecasts"][0]["temperature"]["min"]["celsius"].string
                 self.maxTemp = json["forecasts"][0]["temperature"]["max"]["celsius"].string
                 //上記の2つは、strinで値を返しているから、optionaol()か、nilが入る。後々アンラップしないと,,,

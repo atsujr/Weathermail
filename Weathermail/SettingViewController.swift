@@ -68,6 +68,8 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @IBAction func backHomeView() {
         didBackAlert()
     }
+    
+    
     //インスタンスを作成
     let todofukenPickerView = UIPickerView(frame: .zero)
     let timePickerView = UIPickerView(frame: .zero)
@@ -92,7 +94,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         super.viewDidLoad()
         timePicker.date = now as Date
         //Userdefaultsに初期値を代入
-        userDefaults.register(defaults: ["place" : "北海道", "time" : "0:00"])
+        userDefaults.register(defaults: ["time" : "0:00"])
         //最初に、textfieldに入れる値を決定する。
         placeTextField.text = (UserDefaults.standard.object(forKey: "place") as? String)
         timeTextField.text = (UserDefaults.standard.object(forKey: "time") as? String)
@@ -102,6 +104,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         
     }
     
+    //都道府県のpickerについての設定
     func setupWeatherPicker() {
         todofukenPickerView.delegate = self
         todofukenPickerView.dataSource = self
@@ -124,6 +127,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         
     }
     
+    //時間を指定するやつ
     func setupTimePicker(){
         timePickerView.dataSource = self
         
@@ -170,6 +174,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         print("🍌")
     }
     
+    //保存ボタン
     func didSaveAlert(){
         // 第3引数のpreferredStyleでアラートの表示スタイルを指定
         let alert = UIAlertController(title: "保存", message: "保存しますか？", preferredStyle: .alert)
@@ -208,6 +213,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         present(alert, animated: true, completion: nil)
     }
     
+    //戻るボタン
     func didBackAlert(){
         // 第3引数のpreferredStyleでアラートの表示スタイルを指定
         let alert = UIAlertController(title: "データをまだ保存してません", message: "本当に戻りますか？", preferredStyle: .alert)
@@ -230,6 +236,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         present(alert, animated: true, completion: nil)
     }
     
+    //通知をするための用意
     func setMail(_ timeOfMail: String){
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -251,8 +258,8 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
  
         // 通知コンテンツの作成
         let content = UNMutableNotificationContent()
-        content.title = "Calendar Notification"
-        content.body = "お腹すいた,,,"
+        content.title = "傘がいるか確認しよう！"
+        content.body = "この通知をスライドすると、アプリを開くことができるよ！"
         content.sound = UNNotificationSound.default
  
         // 通知リクエストの作成
