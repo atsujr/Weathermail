@@ -22,7 +22,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
-                                    <segue destination="vAv-I7-rEz" kind="presentation" id="740-2p-Rxc"/>
+                                    <segue destination="vAv-I7-rEz" kind="showDetail" id="740-2p-Rxc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ik3-tM-zeX">
@@ -34,13 +34,13 @@
                                     <action selector="checkWeatherView" destination="BYZ-38-t0r" eventType="touchUpInside" id="Os5-Rc-2Hz"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GpO-Bv-dHQ">
-                                <rect key="frame" x="183" y="368" width="49" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jxy-yR-jBa">
+                                <rect key="frame" x="174" y="365" width="67" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="test"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
-                                    <action selector="button1" destination="BYZ-38-t0r" eventType="touchUpInside" id="2ej-Y7-fZS"/>
+                                    <action selector="button1" destination="BYZ-38-t0r" eventType="touchUpInside" id="52W-7d-I8B"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -81,7 +81,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Title" id="nFV-pR-5RJ">
-                                        <barButtonItem key="leftBarButtonItem" title="戻る" id="vSc-cu-FIz"/>
+                                        <barButtonItem key="leftBarButtonItem" title="戻る" id="vSc-cu-FIz">
+                                            <connections>
+                                                <action selector="backHomeView" destination="vAv-I7-rEz" id="Ws4-W0-uSL"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="保存" id="vrN-eN-wYY">
                                             <connections>
                                                 <action selector="savePlaceAndTime" destination="vAv-I7-rEz" id="0uQ-XT-53f"/>
@@ -103,6 +107,7 @@
                     <navigationItem key="navigationItem" id="2fC-qk-zzR"/>
                     <connections>
                         <outlet property="placeTextField" destination="9hp-tQ-LCN" id="hY3-LO-ffB"/>
+                        <outlet property="swichname" destination="CVt-7e-iTP" id="Gmt-zd-ONq"/>
                         <outlet property="timeTextField" destination="2Ne-9U-Dzm" id="ft0-Mx-NqI"/>
                     </connections>
                 </viewController>

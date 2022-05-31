@@ -38,7 +38,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     
     //userdefaultsに入れる用の変数を2つ宣言しておく。
     var placeText: String!
-    var timeText: String!
+    var timeText: String! = "0:00"
     
     //通知を希望するかしないかのための変数
     var wantMail: Bool! = true
@@ -48,6 +48,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     
     let now = NSDate()
     //switchの動作決定
+    @IBOutlet weak var swichname: UISwitch!
     @IBAction func mailUISwitch(sender: UISwitch) {
         if ( sender.isOn ) {
             timeTextField.isHidden = false
@@ -94,10 +95,16 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         super.viewDidLoad()
         timePicker.date = now as Date
         //Userdefaultsに初期値を代入
-        userDefaults.register(defaults: ["time" : "0:00"])
+        userDefaults.register(defaults: ["time" : "0:00","wantmail" : "true"])
         //最初に、textfieldに入れる値を決定する。
         placeTextField.text = (UserDefaults.standard.object(forKey: "place") as? String)
         timeTextField.text = (UserDefaults.standard.object(forKey: "time") as? String)
+        let swichbool = userDefaults.bool(forKey: "wantmail")
+        swichname.setOn(swichbool, animated: false)
+        if(swichbool == false){
+            timeTextField.isHidden = true
+            wantMail = swichbool
+        }
         //準備する関数
         setupWeatherPicker()
         setupTimePicker()
@@ -186,6 +193,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
                 //userdefaultsに、場所と時間をセットする。
                 self.userDefaults.set(self.placeText, forKey: "place")
                 self.userDefaults.set(self.timeText, forKey: "time")
+                self.userDefaults.set(self.wantMail, forKey: "wantmail")
                 
                 //通知機能を準備するための関数
                 self.setMail(self.timeText)
@@ -196,6 +204,12 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
                 
             } else {
                 self.userDefaults.set(self.placeText, forKey: "place")
+                self.userDefaults.set(self.wantMail, forKey: "wantmail")
+            }
+            
+            if let controller = self.presentingViewController as? ViewController {
+                controller.setApi()
+               // print("🐒")
             }
             //一個前の画面に戻る。
             self.dismiss(animated: true, completion: nil)
@@ -205,6 +219,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         // キャンセルボタン
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { (acrion) in
             //self.dismiss(animated: true, completion: nil)
+            print(self.wantMail)
             print("🍫")
         }
         alert.addAction(cancel)
@@ -243,30 +258,30 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         dateFormatter.timeStyle = .medium
         dateFormatter.dateStyle = .medium
         dateFormatter.locale = Locale(identifier: "ja_JP")
- 
+        
         
         let date2 = DateFormatter.HHmm.date(from: timeOfMail)!
         let targetDate = Calendar.current.dateComponents(
             [.hour, .minute],
             from: date2)
- 
+        
         let dateString = dateFormatter.string(from: date2)
         print(dateString)
- 
+        
         // トリガーの作成
         let trigger = UNCalendarNotificationTrigger.init(dateMatching: targetDate, repeats: false)
- 
+        
         // 通知コンテンツの作成
         let content = UNMutableNotificationContent()
         content.title = "傘がいるか確認しよう！"
         content.body = "この通知をスライドすると、アプリを開くことができるよ！"
         content.sound = UNNotificationSound.default
- 
+        
         // 通知リクエストの作成
         request = UNNotificationRequest.init(
-                identifier: "CalendarNotification",
-                content: content,
-                trigger: trigger)
+            identifier: "CalendarNotification",
+            content: content,
+            trigger: trigger)
     }
     
 }
