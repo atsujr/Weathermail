@@ -9,6 +9,7 @@ import UIKit
 import os
 
 class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource{
+    
     //ここから下の４つの関数は、UIPickerViewDelegate, UIPickerViewDataSourceというこの２つのプロトコルの内部に宣言されている(しかもoptionalじゃない４つ)から、絶対書かないといけない。書かないとエラー吐く。
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -26,8 +27,12 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         
     }
     
-    //現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
+    //Userがpickerを触ったときに現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
+        //配列のいくつめのを入れたかをnumberOfPlaceListに入れておく。
+        numberOfPlaceList = dataList.index(of: dataList[row])
+        //いったんplaveTextっていう変数に入れておくことでuserdefaukltに入れやすくなってる！
         placeText = dataList[row]
         placeTextField.text = placeText
     }
@@ -36,9 +41,11 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @IBOutlet  var placeTextField: CustomTextField!
     @IBOutlet  var timeTextField: CustomTextField!
     
+    //配列のindexを取得するための変数
+    var numberOfPlaceList: Int?
     //userdefaultsに入れる用の変数を2つ宣言しておく。
     var placeText: String!
-    var timeText: String! = "0:00"
+    var timeText: String!
     
     //通知を希望するかしないかのための変数
     var wantMail: Bool! = true
@@ -79,32 +86,63 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     var request:UNNotificationRequest!
     //47都道府県を入れた配列を用意
     //https://weather.tsukumijima.net/primary_area.xml
-    private let dataList = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
-                            "山形県", "福島県", "茨城県", "栃木県", "群馬県",
-                            "埼玉県", "千葉県", "東京都", "神奈川県","新潟県",
-                            "富山県", "石川県", "福井県", "山梨県", "長野県",
-                            "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県",
-                            "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県",
-                            "鳥取県", "島根県", "岡山県", "広島県", "山口県",
-                            "徳島県", "香川県", "愛媛県", "高知県", "福岡県",
-                            "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県",
-                            "鹿児島県", "沖縄県"]
+    private let dataList:[String] = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
+                                     "山形県", "福島県", "茨城県", "栃木県", "群馬県",
+                                     "埼玉県", "千葉県", "東京都", "神奈川県","新潟県",
+                                     "富山県", "石川県", "福井県", "山梨県", "長野県",
+                                     "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県",
+                                     "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県",
+                                     "鳥取県", "島根県", "岡山県", "広島県", "山口県",
+                                     "徳島県", "香川県", "愛媛県", "高知県", "福岡県",
+                                     "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県",
+                                     "鹿児島県", "沖縄県"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        timePicker.date = now as Date
-        //Userdefaultsに初期値を代入
-        userDefaults.register(defaults: ["time" : "0:00","wantmail" : "true"])
-        //最初に、textfieldに入れる値を決定する。
-        placeTextField.text = (UserDefaults.standard.object(forKey: "place") as? String)
-        timeTextField.text = (UserDefaults.standard.object(forKey: "time") as? String)
+//        timePicker.date = now as Date
+//        //Userdefaultsに初期値を代入
+//        userDefaults.register(defaults: ["time" : "0:00","wantmail" : "true"])
+//        //最初に、textfieldに入れる値を決定する。
+//        placeTextField.text = (UserDefaults.standard.object(forKey: "place") as? String)
+//        timeTextField.text = (UserDefaults.standard.object(forKey: "time") as? String)
+        //最初の都道府県を選ぶpickerの設定
+        if(userDefaults.string(forKey: "place") != nil){
+            placeTextField.text = userDefaults.string(forKey: "place")
+            placeText = userDefaults.string(forKey: "place")
+            placeTextField.text = placeText
+        }else{
+            placeText = "北海道"
+            placeTextField.text = placeText
+        }
+        //最初の時間のところの設定
+        if(userDefaults.string(forKey: "time") != nil){
+            timeText = userDefaults.string(forKey: "time")
+            timeTextField.text = timeText
+        }else{
+            timeText = "0:00"
+            timeTextField.text = "0:00"
+        }
+        
+        
+        //最初のswichの値をuserdefaultから持ってくる
         let swichbool = userDefaults.bool(forKey: "wantmail")
         swichname.setOn(swichbool, animated: false)
         if(swichbool == false){
             timeTextField.isHidden = true
+            //falseだったら、wantmailがtrueスタートで始まるのはまずいよね
+            wantMail = swichbool
+        }else{
+            //userdefaultsから持ってきた値がtrueだったら、、いらない気がする、、、
             wantMail = swichbool
         }
+        //pickerの最初のところと、表示されているところを一致させようとしたけど失敗した😭
+//        if(UserDefaults.standard.integer(forKey: "numberOfIndex") != nil){
+//            var firstIndexNum = UserDefaults.standard.integer(forKey: "numberOfIndex")
+//            todofukenPickerView.selectRow(firstIndexNum, inComponent: 0, animated: false)
+//            placeTextField.text = dataList[firstIndexNum]
+//
+//        }
         //準備する関数
         setupWeatherPicker()
         setupTimePicker()
@@ -190,11 +228,11 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         let ok = UIAlertAction(title: "OK", style: .default) { (action) in
             //通知を希望するかどうかで保存するものが変わる。
             if (self.wantMail) {
-                //userdefaultsに、場所と時間をセットする。
+                //userdefaultsに、場所と時間と、通知が欲しいか、都道府県の幾つめが入ったかをセットする。
                 self.userDefaults.set(self.placeText, forKey: "place")
                 self.userDefaults.set(self.timeText, forKey: "time")
                 self.userDefaults.set(self.wantMail, forKey: "wantmail")
-                
+                self.userDefaults.set(self.numberOfPlaceList, forKey: "numberOfIndex")
                 //通知機能を準備するための関数
                 self.setMail(self.timeText)
                 
@@ -205,11 +243,12 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
             } else {
                 self.userDefaults.set(self.placeText, forKey: "place")
                 self.userDefaults.set(self.wantMail, forKey: "wantmail")
+                self.userDefaults.set(self.numberOfPlaceList, forKey: "numberOfIndex")
             }
-            
+            //戻るタイミングで、set関数を呼び出しておく。
             if let controller = self.presentingViewController as? ViewController {
                 controller.setApi()
-               // print("🐒")
+                // print("🐒")
             }
             //一個前の画面に戻る。
             self.dismiss(animated: true, completion: nil)
@@ -219,8 +258,8 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         // キャンセルボタン
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { (acrion) in
             //self.dismiss(animated: true, completion: nil)
-            print(self.wantMail)
-            print("🍫")
+           // print(self.wantMail)
+            //print("🍫")
         }
         alert.addAction(cancel)
         
@@ -283,109 +322,10 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
             content: content,
             trigger: trigger)
     }
-    func retCityTag(_ todoufuken: String) -> Int{
-        if(todoufuken == "北海道"){
-            print("😁")
-            return 016010
-        }else  if(todoufuken == "青森県"){
-            return 020010
-        }else if(todoufuken == "岩手県"){
-            return 030010
-        }else if(todoufuken == "宮城県"){
-            return 040010
-        }else if(todoufuken == "秋田県"){
-            return 050010
-        }else if(todoufuken == "山形県"){
-            return 060010
-        }else if(todoufuken == "福島県"){
-            return 070010
-        }else if(todoufuken == "茨城県"){
-            return 080010
-        }else if(todoufuken == "栃木県"){
-            return 090010
-            //ここになんか境目がある。nilが入るのと入らないの
-        }else  if(todoufuken == "群馬県"){
-            return 100010
-        }else if(todoufuken == "埼玉県"){
-            return 110010
-        }else if(todoufuken == "千葉県"){
-            return 130010
-        }else if(todoufuken == "東京都"){
-            return 120010
-        }else if(todoufuken == "神奈川県"){
-            return 140010
-        }else if(todoufuken == "新潟県"){
-            return 150010
-        }else if(todoufuken == "富山県"){
-            return 160010
-        }else  if(todoufuken == "石川県"){
-            return 170010
-        }else if(todoufuken == "福井県"){
-            return 180010
-        }else if(todoufuken == "山梨県"){
-            return 190010
-        }else if(todoufuken == "長野県"){
-            return 200010
-        }else if(todoufuken == "岐阜県"){
-            return 210010
-        }else if(todoufuken == "静岡県"){
-            return 220010
-        }else if(todoufuken == "愛知県"){
-            return 230010
-        }else  if(todoufuken == "三重県"){
-            return 240010
-        }else if(todoufuken == "滋賀県"){
-            return 250010
-        }else if(todoufuken == "京都府"){
-            return 260010
-        }else if(todoufuken == "大阪府"){
-            return 270000
-        }else if(todoufuken == "兵庫県"){
-            return 280010
-        }else if(todoufuken == "奈良県"){
-            return 290010
-        }else if(todoufuken == "和歌山県"){
-            return 300010
-        }else  if(todoufuken == "鳥取県"){
-            return 310010
-        }else if(todoufuken == "島根県"){
-            return 320010
-        }else if(todoufuken == "岡山県"){
-            return 330010
-        }else if(todoufuken == "広島県"){
-            return 340010
-        }else if(todoufuken == "山口県"){
-            return 350010
-        }else if(todoufuken == "徳島県"){
-            return 360010
-        }else if(todoufuken == "香川県"){
-            return 370000
-        }else  if(todoufuken == "愛媛県"){
-            return 380010
-        }else if(todoufuken == "高知県"){
-            return 390010
-        }else if(todoufuken == "福岡県"){
-            return 400010
-        }else if(todoufuken == "佐賀県"){
-            return 410010
-        }else if(todoufuken == "長崎県"){
-            return 420010
-        }else if(todoufuken == "熊本県"){
-            return 430010
-        }else if(todoufuken == "大分県"){
-            return 440010
-        }else  if(todoufuken == "宮崎県"){
-            return 450010
-        }else if(todoufuken == "鹿児島県"){
-            return 460010
-        }else if(todoufuken == "沖縄県"){
-            return 471010
-        }
-        return 0
-    }
-    
 }
+//extentionを使って拡張してる
 extension DateFormatter {
+    //時間のスタイルの指定
     static var HHmm: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
