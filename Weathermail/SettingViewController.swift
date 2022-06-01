@@ -27,9 +27,9 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         
     }
     
-    //Userがpickerを触ったときに現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
+    //Userがpickerを動かした時に現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
+        numbercount = numbercount + 1
         //配列のいくつめのを入れたかをnumberOfPlaceListに入れておく。
         numberOfPlaceList = dataList.index(of: dataList[row])
         //いったんplaveTextっていう変数に入れておくことでuserdefaukltに入れやすくなってる！
@@ -41,8 +41,9 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @IBOutlet  var placeTextField: CustomTextField!
     @IBOutlet  var timeTextField: CustomTextField!
     
+    var numbercount: Int = 0
     //配列のindexを取得するための変数
-    var numberOfPlaceList: Int? = 0
+    var numberOfPlaceList: Int?
     //userdefaultsに入れる用の変数を2つ宣言しておく。
     var placeText: String!
     var timeText: String!
@@ -123,6 +124,15 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
             timeText = "0:00"
             timeTextField.text = "0:00"
         }
+        if(userDefaults.integer(forKey: "numberOfIndex") != nil){
+            numberOfPlaceList = userDefaults.integer(forKey: "numberOfIndex")
+        }else{
+            numberOfPlaceList = 0
+        }
+//        print("💤開始前")
+//        print(numbercount)
+//        print("💤開始前")
+        
         
         
         //最初のswichの値をuserdefaultから持ってくる
@@ -170,8 +180,13 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         //doneを押したときに、閉めることができるメソッド
         placeTextField.resignFirstResponder()
         //2かいめ行こうpickeeを何もせずDoneを押すとうまくいかなかったから、それを修正するためのしたの２行
+        if (self.numbercount != 0){
         placeText = dataList[numberOfPlaceList!]
         placeTextField.text = placeText
+        }else{
+        placeText = "北海道"
+        placeTextField.text = placeText
+        }
     }
     
     //時間を指定するやつ
@@ -223,12 +238,17 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     
     //保存ボタン
     func didSaveAlert(){
+        
         // 第3引数のpreferredStyleでアラートの表示スタイルを指定
         let alert = UIAlertController(title: "保存", message: "保存しますか？", preferredStyle: .alert)
         
         // OKボタン
         let ok = UIAlertAction(title: "OK", style: .default) { (action) in
             //通知を希望するかどうかで保存するものが変わる。
+//            print("💭開始後")
+//            print(self.numbercount)
+//            print("💭開始後")
+
             if (self.wantMail) {
                 //userdefaultsに、場所と時間と、通知が欲しいか、都道府県の幾つめが入ったかをセットする。
                 self.userDefaults.set(self.placeText, forKey: "place")
