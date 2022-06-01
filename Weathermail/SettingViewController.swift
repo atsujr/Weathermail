@@ -185,6 +185,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         placeTextField.text = placeText
         }else{
         placeText = "北海道"
+        numberOfPlaceList = 0
         placeTextField.text = placeText
         }
     }
