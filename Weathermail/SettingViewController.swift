@@ -42,7 +42,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @IBOutlet  var timeTextField: CustomTextField!
     
     //配列のindexを取得するための変数
-    var numberOfPlaceList: Int?
+    var numberOfPlaceList: Int? = 0
     //userdefaultsに入れる用の変数を2つ宣言しておく。
     var placeText: String!
     var timeText: String!
@@ -169,7 +169,9 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @objc func tappedPlaceDone() {
         //doneを押したときに、閉めることができるメソッド
         placeTextField.resignFirstResponder()
-        
+        //2かいめ行こうpickeeを何もせずDoneを押すとうまくいかなかったから、それを修正するためのしたの２行
+        placeText = dataList[numberOfPlaceList!]
+        placeTextField.text = placeText
     }
     
     //時間を指定するやつ
