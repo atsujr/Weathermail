@@ -78,6 +78,9 @@ class ViewController: UIViewController {
 //                    print("✋")
 //                    print(chanceOfRain0to6!)
         if (saveData.string(forKey: "place") != nil) {
+            if let controller = self.presentingViewController as? WeatherViewController {
+                controller.setApiInWeatherView()
+            }
             performSegue(withIdentifier: "toWeatherView", sender: nil)
         }else{
             let alert = UIAlertController(

@@ -29,7 +29,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     
     //Userがpickerを動かした時に現在表示されているpickerの中身と一致するものを、textfieldにぶち込む
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        numbercount = numbercount + 1
+        numbercountofplacepicker = numbercountofplacepicker + 1
         //配列のいくつめのを入れたかをnumberOfPlaceListに入れておく。
         numberOfPlaceList = dataList.index(of: dataList[row])
         //いったんplaveTextっていう変数に入れておくことでuserdefaukltに入れやすくなってる！
@@ -41,7 +41,8 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @IBOutlet  var placeTextField: CustomTextField!
     @IBOutlet  var timeTextField: CustomTextField!
     
-    var numbercount: Int = 0
+    var numbercountofplacepicker: Int = 0
+    var numbercountoftimepicker: Int = 0
     //配列のindexを取得するための変数
     var numberOfPlaceList: Int?
     //userdefaultsに入れる用の変数を2つ宣言しておく。
@@ -129,9 +130,10 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         }else{
             numberOfPlaceList = 0
         }
-//        print("💤開始前")
-//        print(numbercount)
-//        print("💤開始前")
+        getNowtime()
+        print("💤開始前")
+        print(numbercountoftimepicker)
+        print("💤開始前")
         
         
         
@@ -146,13 +148,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
             //userdefaultsから持ってきた値がtrueだったら、、いらない気がする、、、
             wantMail = swichbool
         }
-        //pickerの最初のところと、表示されているところを一致させようとしたけど失敗した😭
-//        if(UserDefaults.standard.integer(forKey: "numberOfIndex") != nil){
-//            var firstIndexNum = UserDefaults.standard.integer(forKey: "numberOfIndex")
-//            todofukenPickerView.selectRow(firstIndexNum, inComponent: 0, animated: false)
-//            placeTextField.text = dataList[firstIndexNum]
-//
-//        }
+
         //準備する関数
         setupWeatherPicker()
         setupTimePicker()
@@ -179,8 +175,8 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @objc func tappedPlaceDone() {
         //doneを押したときに、閉めることができるメソッド
         placeTextField.resignFirstResponder()
-        //2かいめ行こうpickeeを何もせずDoneを押すとうまくいかなかったから、それを修正するためのしたの２行
-        if (self.numbercount != 0){
+        //2かいめ行こうpickeeを開いて何もせずDoneを押すとうまくいかなかったから、それを修正するためのしたの２行
+        if (self.numbercountofplacepicker != 0){
         placeText = dataList[numberOfPlaceList!]
         placeTextField.text = placeText
         }else{
@@ -211,10 +207,24 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     
     @objc func tappedTimeDone() {
         //doneを押したときに、閉めることができるメソッド
+        if(numbercountoftimepicker == 0){
+            timeText = dateFormatter.string(from: dt)
+            timeTextField.text = timeText
+        }
         timeTextField.resignFirstResponder()
-        
     }
     
+    let dt = Date()
+    let dateFormatter = DateFormatter()
+    func getNowtime(){
+        dateFormatter.dateFormat = "HH:mm"
+
+        // DateFormatter を使用して書式とロケールを指定する
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "HHmm", options: 0, locale: Locale(identifier: "ja_JP"))
+        print("☀️現在時刻が表示できてるか")
+        print(dateFormatter.string(from: dt))
+        print("☀️現在時刻が表示できてるか")
+    }
     //UIDatePickerをインスタンス化
     let timePicker: UIDatePicker = {
         let dp = UIDatePicker()
@@ -235,6 +245,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         timeText = "\(formatter.string(from: timePicker.date))"
         timeTextField.text = timeText
         print("🍌")
+        numbercountoftimepicker = numbercountoftimepicker + 1
     }
     
     //保存ボタン
@@ -247,7 +258,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         let ok = UIAlertAction(title: "OK", style: .default) { (action) in
             //通知を希望するかどうかで保存するものが変わる。
 //            print("💭開始後")
-//            print(self.numbercount)
+//            print(self.numbercountoftimepicker)
 //            print("💭開始後")
 
             if (self.wantMail) {
