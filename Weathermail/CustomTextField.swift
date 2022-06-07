@@ -21,4 +21,10 @@ final class CustomTextField: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return false
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.frame.size.height = 50 // ここ変える
+        //self.frame.size.width = 250
+    }
 }

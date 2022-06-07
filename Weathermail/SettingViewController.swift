@@ -40,6 +40,9 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     //textFieldの宣言
     @IBOutlet  var placeTextField: CustomTextField!
     @IBOutlet  var timeTextField: CustomTextField!
+    @IBOutlet var titlenavigationbar: UINavigationBar!
+    
+    
     
     var numbercountofplacepicker: Int = 0
     var numbercountoftimepicker: Int = 0
@@ -61,10 +64,12 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     @IBAction func mailUISwitch(sender: UISwitch) {
         if ( sender.isOn ) {
             timeTextField.isHidden = false
+            timetitleLabel.isHidden = false
             wantMail = true
             
         } else {
             timeTextField.isHidden = true
+            timetitleLabel.isHidden = true
             wantMail = false
         }
     }
@@ -102,12 +107,12 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        timePicker.date = now as Date
-//        //Userdefaultsに初期値を代入
-//        userDefaults.register(defaults: ["time" : "0:00","wantmail" : "true"])
-//        //最初に、textfieldに入れる値を決定する。
-//        placeTextField.text = (UserDefaults.standard.object(forKey: "place") as? String)
-//        timeTextField.text = (UserDefaults.standard.object(forKey: "time") as? String)
+        //        timePicker.date = now as Date
+        //        //Userdefaultsに初期値を代入
+        //        userDefaults.register(defaults: ["time" : "0:00","wantmail" : "true"])
+        //        //最初に、textfieldに入れる値を決定する。
+        //        placeTextField.text = (UserDefaults.standard.object(forKey: "place") as? String)
+        //        timeTextField.text = (UserDefaults.standard.object(forKey: "time") as? String)
         //最初の都道府県を選ぶpickerの設定
         if(userDefaults.string(forKey: "place") != nil){
             placeTextField.text = userDefaults.string(forKey: "place")
@@ -142,13 +147,14 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         swichname.setOn(swichbool, animated: false)
         if(swichbool == false){
             timeTextField.isHidden = true
+            timetitleLabel.isHidden = true
             //falseだったら、wantmailがtrueスタートで始まるのはまずいよね
             wantMail = swichbool
         }else{
             //userdefaultsから持ってきた値がtrueだったら、、いらない気がする、、、
             wantMail = swichbool
         }
-
+        
         //準備する関数
         setupWeatherPicker()
         setupTimePicker()
@@ -177,13 +183,49 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         placeTextField.resignFirstResponder()
         //2かいめ行こうpickeeを開いて何もせずDoneを押すとうまくいかなかったから、それを修正するためのしたの２行
         if (self.numbercountofplacepicker != 0){
-        placeText = dataList[numberOfPlaceList!]
-        placeTextField.text = placeText
+            placeText = dataList[numberOfPlaceList!]
+            placeTextField.text = placeText
         }else{
-        placeText = "北海道"
-        numberOfPlaceList = 0
-        placeTextField.text = placeText
+            placeText = "北海道"
+            numberOfPlaceList = 0
+            placeTextField.text = placeText
         }
+    }
+    @IBOutlet weak var savebutton: UIBarButtonItem!
+//    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet var placetitleLabel: UILabel!
+    @IBOutlet var timetitleLabel: UILabel!
+    @IBOutlet var whichmailornottitleLabel: UILabel!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("☔️")
+        let font = UIFont(name: "03SmartFontUI", size: 20)
+        placetitleLabel.font = font
+        timetitleLabel.font = font
+        whichmailornottitleLabel.font = font
+        savebutton.setTitleTextAttributes([
+            NSAttributedString.Key.font: UIFont(name: "03SmartFontUI", size: 15)!,
+            NSAttributedString.Key.foregroundColor: UIColor.black],
+            for: .normal)
+        backButton.setTitleTextAttributes([
+            NSAttributedString.Key.font: UIFont(name: "03SmartFontUI", size: 15)!,
+            NSAttributedString.Key.foregroundColor: UIColor.black],
+            for: .normal)
+    //titleに関する設定
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.titleTextAttributes =
+                    // フォントカラー
+                    [NSAttributedString.Key.foregroundColor: UIColor.black,
+                     // フォントの種類
+                        NSAttributedString.Key.font: UIFont(name: "03SmartFontUI",
+                            // フォントサイズ
+                            size: 15)!]
+        self.navigationItem.title = "title font test"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Times New Roman", size: 10)!]
+ 
     }
     
     //時間を指定するやつ
@@ -218,7 +260,7 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
     let dateFormatter = DateFormatter()
     func getNowtime(){
         dateFormatter.dateFormat = "HH:mm"
-
+        
         // DateFormatter を使用して書式とロケールを指定する
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "HHmm", options: 0, locale: Locale(identifier: "ja_JP"))
         print("☀️現在時刻が表示できてるか")
@@ -257,10 +299,10 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         // OKボタン
         let ok = UIAlertAction(title: "OK", style: .default) { (action) in
             //通知を希望するかどうかで保存するものが変わる。
-//            print("💭開始後")
-//            print(self.numbercountoftimepicker)
-//            print("💭開始後")
-
+            //            print("💭開始後")
+            //            print(self.numbercountoftimepicker)
+            //            print("💭開始後")
+            
             if (self.wantMail) {
                 //userdefaultsに、場所と時間と、通知が欲しいか、都道府県の幾つめが入ったかをセットする。
                 self.userDefaults.set(self.placeText, forKey: "place")
@@ -280,10 +322,10 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
                 self.userDefaults.set(self.numberOfPlaceList, forKey: "numberOfIndex")
             }
             //戻るタイミングで、set関数を呼び出しておく。
-            if let controller = self.presentingViewController as? ViewController {
-                controller.setApi()
-                // print("🐒")
-            }
+            //            if let controller = self.presentingViewController as? ViewController {
+            //                controller.setApi()
+            //                // print("🐒")
+            //            }
             //一個前の画面に戻る。
             self.dismiss(animated: true, completion: nil)
         }
@@ -291,9 +333,6 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         
         // キャンセルボタン
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { (acrion) in
-            //self.dismiss(animated: true, completion: nil)
-           // print(self.wantMail)
-            //print("🍫")
         }
         alert.addAction(cancel)
         
@@ -316,7 +355,6 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
         // キャンセルボタン
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { (acrion) in
             //self.dismiss(animated: true, completion: nil)
-            print("🍫")
         }
         alert.addAction(cancel)
         

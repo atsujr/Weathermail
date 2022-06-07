@@ -10,9 +10,12 @@ import Alamofire
 import SwiftyJSON
 
 class ViewController: UIViewController {
-    @IBOutlet var label:UILabel!
+    @IBOutlet var kekkalabel:UILabel!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var resultImage: UIImageView!
+    @IBOutlet var changeResultButtton: UIButton!
     let saveData = UserDefaults.standard
-
+    
     var chanceOfRain0to6: String!
     var chanceOfRain6to12: String!
     var chanceOfRain12to18: String!
@@ -42,7 +45,7 @@ class ViewController: UIViewController {
         AF.request(url!, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result {
             case .success:
-               
+                
                 //jsonを取得
                 let json = JSON(response.data as Any)
                 self.chanceOfRain0to6 = json["forecasts"][0]["chanceOfRain"]["T00_06"].string
@@ -58,11 +61,14 @@ class ViewController: UIViewController {
                 
                 //最後にここに画像をセットしてあげれば終わり
                 if(self.IntOfchanceOfRain0to6 >= 60 || self.IntOfchanceOfRain6to12 >= 60 || self.IntOfchanceOfRain12to18 >= 60 || self.IntOfchanceOfRain18to24 >= 60){
-                    self.label.text = "傘を持って行こう！"
+                    //self.kekkalabel.text = "傘を持って行こう！"
+                    self.resultImage.image = UIImage(named: "kasa")
                 }else if(self.IntOfchanceOfRain0to6 >= 50 || self.IntOfchanceOfRain6to12 >= 50 || self.IntOfchanceOfRain12to18 >= 50 || self.IntOfchanceOfRain18to24 >= 50){
-                    self.label.text = "折り畳み傘をを持って行こう！"
+                    //self.kekkalabel.text = "折り畳み傘をを持って行こう！"
+                    self.resultImage.image = UIImage(named: "oritatami")
                 }else{
-                    self.label.text = "今日は傘はいらないよ！！"
+                    //self.kekkalabel.text = "今日は傘はいらないよ！！"
+                    self.resultImage.image = UIImage(named: "taiyou")
                 }
                 
             case .failure(let error):
@@ -72,11 +78,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func checkWeatherView(){
-//                    let getIndexNum: Int? = saveData.integer(forKey: "numberOfIndex")
-//                    print("✋")
-//                    print(getIndexNum!)
-//                    print("✋")
-//                    print(chanceOfRain0to6!)
+        //                    let getIndexNum: Int? = saveData.integer(forKey: "numberOfIndex")
+        //                    print("✋")
+        //                    print(getIndexNum!)
+        //                    print("✋")
+        //                    print(chanceOfRain0to6!)
         if (saveData.string(forKey: "place") != nil) {
             if let controller = self.presentingViewController as? WeatherViewController {
                 controller.setApiInWeatherView()
@@ -109,13 +115,48 @@ class ViewController: UIViewController {
         return retNum!
     }
     override func viewWillAppear(_ animated: Bool) {
+        //pushだと呼ばれなくなってしまう
         // 戻ってきた時に
         super.viewWillAppear(animated)
         setApi()
+        //天気の詳細を見るボタンの設定
+        setDesign()
+        //viewのデザイン全般
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setApi()
+    }
+    func setDesign(){
+        //フォント用意
+        let font = UIFont(name: "03SmartFontUI", size: 20)
+        titleLabel.font = font
+//タイトルボタンの設定
+        //角丸にしてる
+        titleLabel.layer.cornerRadius = 5
+        titleLabel.clipsToBounds = true
+        //imageviewの設定
+        self.resultImage.layer.cornerRadius = 10
+        self.resultImage.layer.masksToBounds = true
+        
+        self.resultImage.layer.borderColor = UIColor.black.cgColor
+        self.resultImage.layer.borderWidth = 1
+//天気の詳細を見るボタンの設定
+        //角丸
+        changeResultButtton.layer.cornerRadius = 10.0
+        //フォント
+        changeResultButtton.titleLabel?.font = font
+        print("📩")
+        
+        
+//影の設定
+        // 影の濃さ
+        changeResultButtton.layer.shadowOpacity = 0.2
+        // 影のぼかしの大きさ
+        changeResultButtton.layer.shadowRadius = 0.5
+        // 影の色
+        changeResultButtton.layer.shadowColor = UIColor.black.cgColor
+        // 影の方向（width=右方向、height=下方向）
+        changeResultButtton.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     func setApi(){
         if (saveData.string(forKey: "place") != nil) {
@@ -128,6 +169,9 @@ class ViewController: UIViewController {
             print(getIndexNum!)
             yoho(getPlace)
         }
+        let font = UIFont(name: "03SmartFontUI", size: 20)
+        changeResultButtton.titleLabel?.font = font
+        print("📱")
     }
     func retCityTag(_ todoufuken: String) -> String{
         if(todoufuken == "北海道"){
@@ -152,9 +196,9 @@ class ViewController: UIViewController {
             return "100010"
         }else if(todoufuken == "埼玉県"){
             return "110010"
-        }else if(todoufuken == "千葉県"){
-            return "130010"
         }else if(todoufuken == "東京都"){
+            return "130010"
+        }else if(todoufuken == "千葉県"){
             return "120010"
         }else if(todoufuken == "神奈川県"){
             return "140010"

@@ -52,9 +52,9 @@ class WeatherViewController: UIViewController {
             return "100010"
         }else if(todoufuken == "埼玉県"){
             return "110010"
-        }else if(todoufuken == "千葉県"){
-            return "130010"
         }else if(todoufuken == "東京都"){
+            return "130010"
+        }else if(todoufuken == "千葉県"){
             return "120010"
         }else if(todoufuken == "神奈川県"){
             return "140010"

@@ -12,7 +12,13 @@ import os
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
+//    func application(_ application: Bool {
+//
+//        let navigationController = UINavigationController(rootViewController: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "initView"))
+//        self.window?.rootViewVontroller = navigationController
+//
+//        return true
+//    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UNUserNotificationCenter.current().requestAuthorization(
