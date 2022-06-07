@@ -223,9 +223,6 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
                         NSAttributedString.Key.font: UIFont(name: "03SmartFontUI",
                             // フォントサイズ
                             size: 15)!]
-        self.navigationItem.title = "title font test"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Times New Roman", size: 10)!]
- 
     }
     
     //時間を指定するやつ

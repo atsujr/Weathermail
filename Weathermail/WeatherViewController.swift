@@ -15,9 +15,11 @@ class WeatherViewController: UIViewController {
     @IBOutlet var todayweatherlabel:UILabel!
     @IBOutlet var maxtemlabel: UILabel!
     @IBOutlet var mintemlabel: UILabel!
-    @IBOutlet var windlabel: UILabel!
-    @IBOutlet var tomorowweatherlabel: UILabel!
-    
+    @IBOutlet var rainparcent0to6: UILabel!
+    @IBOutlet var rainparcent6to12: UILabel!
+    @IBOutlet var rainparcent12to18: UILabel!
+    @IBOutlet var rainparcent18to24: UILabel!
+    @IBOutlet var backButtton: UIButton!
     @IBAction func backbutton() {
         self.dismiss(animated: true)
     }
@@ -134,10 +136,11 @@ class WeatherViewController: UIViewController {
     var maxTemp: String?//最高気温
     
     var minTemp: String?//最低気温
-    var wind: String?//風速
-    
-    var descriptWeathertomorrow: String?//明日の天気
-    
+    //降水確率
+    var chanceOfRain0to6: String!
+    var chanceOfRain6to12: String!
+    var chanceOfRain12to18: String!
+    var chanceOfRain18to24: String!
     
     
     //    init(num: String){
@@ -162,23 +165,30 @@ class WeatherViewController: UIViewController {
                 self.maxTemp = json["forecasts"][0]["temperature"]["min"]["celsius"].string
                 self.minTemp = json["forecasts"][0]["temperature"]["max"]["celsius"].string
                 //上記の2つは、strinで値を返しているから、optionaol()か、nilが入る。後々アンラップしないと,,,
-                self.wind = json["forecasts"][0]["detail"]["wind"].string!
-                self.descriptWeathertomorrow = json["forecasts"][1]["telop"].string
+                self.chanceOfRain0to6 = json["forecasts"][0]["chanceOfRain"]["T00_06"].string
+                self.chanceOfRain6to12 = json["forecasts"][0]["chanceOfRain"]["T06_12"].string
+                self.chanceOfRain12to18 = json["forecasts"][0]["chanceOfRain"]["T12_18"].string
+                self.chanceOfRain18to24 = json["forecasts"][0]["chanceOfRain"]["T18_24"].string
                 //labelにセットしていく
                 self.todofukenlabel.text = self.todofuken
                 self.todayweatherlabel.text = self.descriptWeatheroftoday
                 if(self.maxTemp != nil){
                     self.maxtemlabel.text = self.maxTemp!
                 }else{
-                    self.maxtemlabel.text = "最高気温を取得できませんでした。"
+                    self.maxtemlabel.text = "取得できませんでした。"
                 }
                 if(self.minTemp != nil){
                     self.mintemlabel.text = self.minTemp!
                 }else{
-                    self.mintemlabel.text = "最低気温を取得できませんでした。"
+                    self.mintemlabel.text = "取得できませんでした。"
                 }
-                self.windlabel.text = self.wind
-                self.tomorowweatherlabel.text = self.descriptWeathertomorrow
+                self.rainparcent0to6.text = self.chanceOfRain0to6
+                self.rainparcent6to12.text = self.chanceOfRain6to12
+                self.rainparcent12to18.text = self.chanceOfRain12to18
+                self.rainparcent18to24.text = self.chanceOfRain18to24
+                
+                
+                
                 
 //                print("🍊")
 //                print(self.todofuken!)
@@ -194,10 +204,21 @@ class WeatherViewController: UIViewController {
             }
         }
     }
+    func setDesign(){
+        //フォント用意
+        let font = UIFont(name: "03SmartFontUI", size: 20)
+//天気の詳細を見るボタンの設定
+        //角丸
+        backButtton.layer.cornerRadius = 10
+        //フォント
+        backButtton.titleLabel?.font = font
+        print("📩")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setApiInWeatherView()
         // Do any additional setup after loading the view.
+        setDesign()
     }
     
     
