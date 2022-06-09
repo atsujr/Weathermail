@@ -48,7 +48,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCw-b8-PMb">
-                                <rect key="frame" x="339" y="69" width="55" height="55"/>
+                                <rect key="frame" x="339" y="59" width="55" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="7aN-rh-rPG"/>
                                     <constraint firstAttribute="width" constant="55" id="gMY-X3-vav"/>
@@ -66,7 +66,7 @@
                             <constraint firstItem="ZTN-g0-eF9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="3wp-6G-aRv"/>
                             <constraint firstItem="ZTN-g0-eF9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="57" id="4u6-VA-iHr"/>
                             <constraint firstItem="ZTN-g0-eF9" firstAttribute="centerX" secondItem="Ik3-tM-zeX" secondAttribute="centerX" id="6qU-VZ-Cmd"/>
-                            <constraint firstItem="hCw-b8-PMb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="6yl-ij-o3d"/>
+                            <constraint firstItem="hCw-b8-PMb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="6yl-ij-o3d"/>
                             <constraint firstItem="U5g-I4-C7O" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="65" id="ADh-aZ-4Ae"/>
                             <constraint firstItem="Ik3-tM-zeX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="80" id="JQc-ew-0h2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="U5g-I4-C7O" secondAttribute="trailing" constant="65" id="VFO-RT-boy"/>
@@ -97,13 +97,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Ne-9U-Dzm" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
-                                <rect key="frame" x="97" y="619" width="220" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hp-tQ-LCN" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
-                                <rect key="frame" x="97" y="234.5" width="220" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hp-tQ-LCN" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
+                                <rect key="frame" x="108" y="272" width="199" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -131,7 +127,7 @@
                                 <navigationBarAppearance key="compactScrollEdgeAppearance"/>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="住んでいる地域を選択" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRm-sp-gdv">
-                                <rect key="frame" x="95.5" y="139" width="223" height="27"/>
+                                <rect key="frame" x="95.5" y="182" width="223" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -143,7 +139,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="何時に通知しますか？" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2b-N6-a23">
-                                <rect key="frame" x="85.5" y="521.5" width="243.5" height="29"/>
+                                <rect key="frame" x="85" y="555.5" width="244" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -154,28 +150,27 @@
                                     <action selector="mailUISwitchWithSender:" destination="vAv-I7-rEz" eventType="valueChanged" id="zOH-er-0uI"/>
                                 </connections>
                             </switch>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Ne-9U-Dzm" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
+                                <rect key="frame" x="108" y="648" width="199" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PCQ-0c-sCC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2Ne-9U-Dzm" firstAttribute="top" secondItem="x2b-N6-a23" secondAttribute="bottom" constant="68.5" id="4lx-iR-bxF"/>
-                            <constraint firstItem="2Ne-9U-Dzm" firstAttribute="centerX" secondItem="fFn-DV-At8" secondAttribute="centerX" id="57U-3E-j99"/>
+                            <constraint firstItem="x2b-N6-a23" firstAttribute="top" secondItem="Isn-nf-CXD" secondAttribute="bottom" constant="94" id="10h-yS-I5S"/>
+                            <constraint firstItem="x2b-N6-a23" firstAttribute="centerX" secondItem="fFn-DV-At8" secondAttribute="centerX" id="3EX-Tn-B9b"/>
                             <constraint firstItem="Isn-nf-CXD" firstAttribute="centerY" secondItem="CVt-7e-iTP" secondAttribute="centerY" id="6vX-5d-tRu"/>
-                            <constraint firstItem="x2b-N6-a23" firstAttribute="top" secondItem="Isn-nf-CXD" secondAttribute="bottom" constant="60" id="8ri-xU-Q0s"/>
                             <constraint firstItem="O3K-23-2P6" firstAttribute="trailing" secondItem="PCQ-0c-sCC" secondAttribute="trailing" id="FFA-Mw-gTH"/>
                             <constraint firstItem="PCQ-0c-sCC" firstAttribute="trailing" secondItem="CVt-7e-iTP" secondAttribute="trailing" constant="20" id="GM6-uq-gKH"/>
-                            <constraint firstItem="uRm-sp-gdv" firstAttribute="top" secondItem="O3K-23-2P6" secondAttribute="bottom" constant="51" id="GTk-cc-8dv"/>
-                            <constraint firstItem="PCQ-0c-sCC" firstAttribute="trailing" secondItem="9hp-tQ-LCN" secondAttribute="trailing" constant="97" id="P8U-ag-bPc"/>
+                            <constraint firstItem="uRm-sp-gdv" firstAttribute="top" secondItem="O3K-23-2P6" secondAttribute="bottom" constant="94" id="GTk-cc-8dv"/>
                             <constraint firstItem="Isn-nf-CXD" firstAttribute="leading" secondItem="fFn-DV-At8" secondAttribute="leadingMargin" id="XVA-aQ-4lt"/>
+                            <constraint firstItem="uRm-sp-gdv" firstAttribute="centerX" secondItem="fFn-DV-At8" secondAttribute="centerX" id="YWy-8E-HYG"/>
                             <constraint firstItem="Isn-nf-CXD" firstAttribute="centerY" secondItem="fFn-DV-At8" secondAttribute="centerY" id="cpR-Df-YTQ"/>
-                            <constraint firstItem="2Ne-9U-Dzm" firstAttribute="leading" secondItem="PCQ-0c-sCC" secondAttribute="leading" constant="97" id="g8A-vn-NXp"/>
-                            <constraint firstItem="x2b-N6-a23" firstAttribute="centerX" secondItem="fFn-DV-At8" secondAttribute="centerX" id="jVI-wX-qio"/>
-                            <constraint firstItem="uRm-sp-gdv" firstAttribute="centerX" secondItem="fFn-DV-At8" secondAttribute="centerX" id="kpM-Ld-US1"/>
                             <constraint firstItem="O3K-23-2P6" firstAttribute="top" secondItem="PCQ-0c-sCC" secondAttribute="top" id="qtg-S5-1kX"/>
-                            <constraint firstItem="9hp-tQ-LCN" firstAttribute="leading" secondItem="PCQ-0c-sCC" secondAttribute="leading" constant="97" id="r3E-zF-VbX"/>
-                            <constraint firstItem="PCQ-0c-sCC" firstAttribute="trailing" secondItem="2Ne-9U-Dzm" secondAttribute="trailing" constant="97" id="uUC-yf-8hm"/>
                             <constraint firstItem="O3K-23-2P6" firstAttribute="leading" secondItem="PCQ-0c-sCC" secondAttribute="leading" id="woG-c2-w0o"/>
-                            <constraint firstItem="9hp-tQ-LCN" firstAttribute="top" secondItem="uRm-sp-gdv" secondAttribute="bottom" constant="68.5" id="ybw-TL-gPP"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2fC-qk-zzR"/>
