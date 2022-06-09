@@ -12,6 +12,8 @@ import SwiftyJSON
 class WeatherViewController: UIViewController {
     
     @IBOutlet var todofukenlabel: UILabel!
+    @IBOutlet var todaysweather: UILabel!
+    @IBOutlet var todaysweatherper: UILabel!
     @IBOutlet var todayweatherlabel:UILabel!
     @IBOutlet var maxtemlabel: UILabel!
     @IBOutlet var mintemlabel: UILabel!
@@ -19,6 +21,13 @@ class WeatherViewController: UIViewController {
     @IBOutlet var rainparcent6to12: UILabel!
     @IBOutlet var rainparcent12to18: UILabel!
     @IBOutlet var rainparcent18to24: UILabel!
+    @IBOutlet var todayweatherlabeltitle:UILabel!
+    @IBOutlet var maxtemlabeltitle: UILabel!
+    @IBOutlet var mintemlabeltitle: UILabel!
+    @IBOutlet var rainparcent0to6title: UILabel!
+    @IBOutlet var rainparcent6to12title: UILabel!
+    @IBOutlet var rainparcent12to18title: UILabel!
+    @IBOutlet var rainparcent18to24title: UILabel!
     @IBOutlet var backButtton: UIButton!
     @IBAction func backbutton() {
         self.dismiss(animated: true)
@@ -175,12 +184,12 @@ class WeatherViewController: UIViewController {
                 if(self.maxTemp != nil){
                     self.maxtemlabel.text = self.maxTemp!
                 }else{
-                    self.maxtemlabel.text = "取得できませんでした。"
+                    self.maxtemlabel.text = "取得失敗。"
                 }
                 if(self.minTemp != nil){
                     self.mintemlabel.text = self.minTemp!
                 }else{
-                    self.mintemlabel.text = "取得できませんでした。"
+                    self.mintemlabel.text = "取得失敗。"
                 }
                 self.rainparcent0to6.text = self.chanceOfRain0to6
                 self.rainparcent6to12.text = self.chanceOfRain6to12
@@ -206,13 +215,42 @@ class WeatherViewController: UIViewController {
     }
     func setDesign(){
         //フォント用意
-        let font = UIFont(name: "03SmartFontUI", size: 20)
+        let bigfont = UIFont(name: "03SmartFontUI", size: 30)
+        let fontof20 = UIFont(name: "03SmartFontUI", size: 25)
+        let normalfont = UIFont(name: "03SmartFontUI", size: 17)
 //天気の詳細を見るボタンの設定
         //角丸
-        backButtton.layer.cornerRadius = 10
+        backButtton.layer.cornerRadius = 5
+        backButtton.layer.shadowOpacity = 0.2
+        // 影のぼかしの大きさ
+        backButtton.layer.shadowRadius = 0.5
+        // 影の色
+        backButtton.layer.shadowColor = UIColor.black.cgColor
+        // 影の方向（width=右方向、height=下方向）
+        backButtton.layer.shadowOffset = CGSize(width: 0, height: 2)
         //フォント
-        backButtton.titleLabel?.font = font
+        backButtton.titleLabel?.font = fontof20
         print("📩")
+        todofukenlabel.font = bigfont
+        todayweatherlabel.font = normalfont
+        maxtemlabel.font = normalfont
+        mintemlabel.font = normalfont
+        rainparcent0to6.font = normalfont
+        rainparcent6to12.font = normalfont
+        rainparcent12to18.font = normalfont
+        rainparcent18to24.font = normalfont
+        todayweatherlabeltitle.font = normalfont
+        maxtemlabeltitle.font = normalfont
+        mintemlabeltitle.font = normalfont
+        rainparcent0to6title.font = normalfont
+        rainparcent6to12title.font = normalfont
+        rainparcent12to18title.font = normalfont
+        rainparcent18to24title.font = normalfont
+        todaysweather.font = fontof20
+        todaysweatherper.font = fontof20
+        
+        
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
