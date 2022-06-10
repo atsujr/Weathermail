@@ -214,15 +214,9 @@ class SettingViewController: UIViewController,UIPickerViewDelegate, UIPickerView
             NSAttributedString.Key.foregroundColor: UIColor.black],
             for: .normal)
     //titleに関する設定
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.titleTextAttributes =
-                    // フォントカラー
-                    [NSAttributedString.Key.foregroundColor: UIColor.black,
-                     // フォントの種類
-                        NSAttributedString.Key.font: UIFont(name: "03SmartFontUI",
-                            // フォントサイズ
-                            size: 15)!]
+        self.navigationItem.title = "設定"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "03SmartFontUI", size: 20)]
+        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 0.35, green: 0.99, blue: 1.00, alpha: 1.0)
     }
     
     //時間を指定するやつ

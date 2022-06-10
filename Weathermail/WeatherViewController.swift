@@ -28,6 +28,7 @@ class WeatherViewController: UIViewController {
     @IBOutlet var rainparcent6to12title: UILabel!
     @IBOutlet var rainparcent12to18title: UILabel!
     @IBOutlet var rainparcent18to24title: UILabel!
+    
     @IBOutlet var backButtton: UIButton!
     @IBAction func backbutton() {
         self.dismiss(animated: true)

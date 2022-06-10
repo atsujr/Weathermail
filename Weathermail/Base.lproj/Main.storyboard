@@ -18,7 +18,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日って傘いる？" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5g-I4-C7O">
                                 <rect key="frame" x="65" y="188" width="284" height="85"/>
-                                <color key="backgroundColor" red="0.35164486479288248" green="0.98679703830286247" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.3529411764705882" green="0.9882352941176471" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="bLK-LZ-ZTA"/>
                                 </constraints>
@@ -56,7 +56,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" backgroundImage="haguruma_nonhaikei"/>
                                 <connections>
-                                    <segue destination="vAv-I7-rEz" kind="presentation" modalPresentationStyle="fullScreen" id="WSI-fb-N1l"/>
+                                    <segue destination="PfD-Fl-1Eb" kind="presentation" modalPresentationStyle="fullScreen" id="WSI-fb-N1l"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -97,41 +97,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hp-tQ-LCN" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
-                                <rect key="frame" x="108" y="261" width="199" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hp-tQ-LCN" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
+                                <rect key="frame" x="108" y="253" width="199" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3K-23-2P6">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" largeTitleDisplayMode="always" id="nFV-pR-5RJ">
-                                        <barButtonItem key="leftBarButtonItem" title="戻る" style="done" id="vSc-cu-FIz">
-                                            <connections>
-                                                <action selector="backHomeView" destination="vAv-I7-rEz" id="Ws4-W0-uSL"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="保存" id="vrN-eN-wYY">
-                                            <connections>
-                                                <action selector="savePlaceAndTime" destination="vAv-I7-rEz" id="sHc-ro-PRz"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                                <navigationBarAppearance key="standardAppearance">
-                                    <color key="backgroundColor" red="0.35451108219999999" green="0.98848336940000003" blue="0.99962300059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <textAttributes key="titleTextAttributes"/>
-                                </navigationBarAppearance>
-                                <navigationBarAppearance key="scrollEdgeAppearance"/>
-                                <navigationBarAppearance key="compactScrollEdgeAppearance"/>
-                            </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="住んでいる地域を選択" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRm-sp-gdv">
-                                <rect key="frame" x="95.5" y="182" width="223" height="27"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通知を希望しますか？" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Isn-nf-CXD">
                                 <rect key="frame" x="20" y="434.5" width="223" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -150,30 +120,50 @@
                                     <action selector="mailUISwitchWithSender:" destination="vAv-I7-rEz" eventType="valueChanged" id="zOH-er-0uI"/>
                                 </connections>
                             </switch>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Ne-9U-Dzm" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
-                                <rect key="frame" x="108" y="632" width="199" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Ne-9U-Dzm" customClass="CustomTextField" customModule="Weathermail" customModuleProvider="target">
+                                <rect key="frame" x="108" y="645" width="199" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="住んでいる地域を選択" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRm-sp-gdv">
+                                <rect key="frame" x="95.5" y="166" width="223" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PCQ-0c-sCC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="x2b-N6-a23" firstAttribute="top" secondItem="Isn-nf-CXD" secondAttribute="bottom" constant="94" id="10h-yS-I5S"/>
+                            <constraint firstItem="9hp-tQ-LCN" firstAttribute="leading" secondItem="2Ne-9U-Dzm" secondAttribute="leading" id="2OQ-pq-G8S"/>
                             <constraint firstItem="x2b-N6-a23" firstAttribute="centerX" secondItem="fFn-DV-At8" secondAttribute="centerX" id="3EX-Tn-B9b"/>
                             <constraint firstItem="Isn-nf-CXD" firstAttribute="centerY" secondItem="CVt-7e-iTP" secondAttribute="centerY" id="6vX-5d-tRu"/>
-                            <constraint firstItem="O3K-23-2P6" firstAttribute="trailing" secondItem="PCQ-0c-sCC" secondAttribute="trailing" id="FFA-Mw-gTH"/>
+                            <constraint firstItem="2Ne-9U-Dzm" firstAttribute="leading" secondItem="PCQ-0c-sCC" secondAttribute="leading" constant="108" id="A19-iS-JQ5"/>
+                            <constraint firstItem="uRm-sp-gdv" firstAttribute="top" secondItem="PCQ-0c-sCC" secondAttribute="top" constant="78" id="BhF-Xb-Muw"/>
+                            <constraint firstItem="2Ne-9U-Dzm" firstAttribute="top" secondItem="x2b-N6-a23" secondAttribute="bottom" constant="60.5" id="ByX-2f-u7E"/>
+                            <constraint firstItem="uRm-sp-gdv" firstAttribute="centerX" secondItem="fFn-DV-At8" secondAttribute="centerX" id="CJH-5W-ook"/>
                             <constraint firstItem="PCQ-0c-sCC" firstAttribute="trailing" secondItem="CVt-7e-iTP" secondAttribute="trailing" constant="20" id="GM6-uq-gKH"/>
-                            <constraint firstItem="uRm-sp-gdv" firstAttribute="top" secondItem="O3K-23-2P6" secondAttribute="bottom" constant="94" id="GTk-cc-8dv"/>
+                            <constraint firstItem="PCQ-0c-sCC" firstAttribute="trailing" secondItem="2Ne-9U-Dzm" secondAttribute="trailing" constant="107" id="IwU-dV-QUr"/>
+                            <constraint firstItem="x2b-N6-a23" firstAttribute="centerX" secondItem="fFn-DV-At8" secondAttribute="centerX" id="OA8-oU-Qsg"/>
                             <constraint firstItem="Isn-nf-CXD" firstAttribute="leading" secondItem="fFn-DV-At8" secondAttribute="leadingMargin" id="XVA-aQ-4lt"/>
-                            <constraint firstItem="uRm-sp-gdv" firstAttribute="centerX" secondItem="fFn-DV-At8" secondAttribute="centerX" id="YWy-8E-HYG"/>
                             <constraint firstItem="Isn-nf-CXD" firstAttribute="centerY" secondItem="fFn-DV-At8" secondAttribute="centerY" id="cpR-Df-YTQ"/>
-                            <constraint firstItem="O3K-23-2P6" firstAttribute="top" secondItem="PCQ-0c-sCC" secondAttribute="top" id="qtg-S5-1kX"/>
-                            <constraint firstItem="O3K-23-2P6" firstAttribute="leading" secondItem="PCQ-0c-sCC" secondAttribute="leading" id="woG-c2-w0o"/>
+                            <constraint firstItem="9hp-tQ-LCN" firstAttribute="top" secondItem="uRm-sp-gdv" secondAttribute="bottom" constant="60" id="iuO-1c-hPR"/>
+                            <constraint firstItem="9hp-tQ-LCN" firstAttribute="trailing" secondItem="2Ne-9U-Dzm" secondAttribute="trailing" id="kgS-gp-QBE"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="2fC-qk-zzR"/>
+                    <navigationItem key="navigationItem" id="2fC-qk-zzR">
+                        <barButtonItem key="leftBarButtonItem" title="戻る" style="done" id="vSc-cu-FIz">
+                            <connections>
+                                <action selector="backHomeView" destination="vAv-I7-rEz" id="Ws4-W0-uSL"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="保存" id="vrN-eN-wYY">
+                            <connections>
+                                <action selector="savePlaceAndTime" destination="vAv-I7-rEz" id="sHc-ro-PRz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="vSc-cu-FIz" id="GZ9-Q1-vie"/>
                         <outlet property="placeTextField" destination="9hp-tQ-LCN" id="hY3-LO-ffB"/>
@@ -182,13 +172,12 @@
                         <outlet property="swichname" destination="CVt-7e-iTP" id="Gmt-zd-ONq"/>
                         <outlet property="timeTextField" destination="2Ne-9U-Dzm" id="ft0-Mx-NqI"/>
                         <outlet property="timetitleLabel" destination="x2b-N6-a23" id="dop-mw-9bl"/>
-                        <outlet property="titlenavigationbar" destination="O3K-23-2P6" id="qxP-Xz-gVH"/>
                         <outlet property="whichmailornottitleLabel" destination="Isn-nf-CXD" id="z4A-q2-w3p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wCQ-DX-62m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="992.75362318840587" y="40.848214285714285"/>
+            <point key="canvasLocation" x="2120.289855072464" y="84.375"/>
         </scene>
         <!--Weather View Controller-->
         <scene sceneID="VXX-c6-ndB">
@@ -362,6 +351,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PRN-8l-Vhz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="476.81159420289856" y="805.58035714285711"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qzx-5i-VeI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PfD-Fl-1Eb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uOg-ZH-hJK">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vAv-I7-rEz" kind="relationship" relationship="rootViewController" id="NGX-lX-hjT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kd2-UU-d0T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1208.6956521739132" y="83.705357142857139"/>
         </scene>
     </scenes>
     <resources>

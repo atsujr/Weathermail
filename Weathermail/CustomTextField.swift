@@ -22,9 +22,10 @@ final class CustomTextField: UITextField {
         return false
     }
     override func layoutSubviews() {
-        super.layoutSubviews()
+         super.layoutSubviews()
 
-        self.frame.size.height = 50 // ここ変える
-        //self.frame.size.width = 250
+        //self.frame.size.height = 50 //
+        //self.frame.size.width = UIScreen.main.bounds.size.width / 2
+        //コードで書くのと相性が悪い。。。？
     }
 }
