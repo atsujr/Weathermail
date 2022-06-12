@@ -613,6 +613,7 @@
 				DEVELOPMENT_TEAM = T3MXB7AQ8F;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weathermail/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "今日って傘いる？いらない？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -643,6 +644,7 @@
 				DEVELOPMENT_TEAM = T3MXB7AQ8F;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weathermail/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "今日って傘いる？いらない？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
